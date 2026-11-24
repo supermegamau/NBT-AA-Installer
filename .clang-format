@@ -1,0 +1,13 @@
+BasedOnStyle: Microsoft
+BreakBeforeBraces: Allman
+IndentWidth: 4
+# 0 = never wrap: every call and statement stays on one line, however long
+ColumnLimit: 0
+PointerAlignment: Left
+AccessModifierOffset: -4
+NamespaceIndentation: All
+AllowShortFunctionsOnASingleLine: Inline
+SortIncludes: false
+# Constructor initializer lists: up to 2 entries on the signature's line; more than 2, one entry per line with a
+# leading comma. clang-format can't count entries, so the single-line form is written by hand.
+BreakConstructorInitializers: BeforeComma

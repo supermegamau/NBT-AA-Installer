@@ -1,0 +1,21 @@
+# Build output
+/bin/
+/obj/
+*.user
+.vs/
+
+# Written next to the .exe at run time: run logs, the saved host and folder, GitHub downloads
+logs/
+*.ini
+downloads/
+
+# Third-party sources: downloaded and unpacked by hand (README.md, "Building it yourself"), not part of this repo.
+# Only our own files in deps\ are kept: build-deps.ps1, wx_local.props, libssh2-build\libssh2.vcxproj.
+/deps/downloads/
+/deps/wxWidgets/
+/deps/libssh2/
+/deps/json/
+
+# Dependency build output (rebuilt with deps\build-deps.ps1)
+/deps/lib/
+/deps/libssh2-build/obj/

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>18.0</VCProjectVersion>
+    <ProjectGuid>{7C3E91A2-5B48-4D6F-8E21-3A9C0B7D4E52}</ProjectGuid>
+    <RootNamespace>NBTAAInstaller</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup Label="UserMacros">
+    <DepsDir>$(MSBuildThisFileDirectory)..\deps\</DepsDir>
+    <WxDir>$(DepsDir)wxWidgets\</WxDir>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutDir>$(MSBuildThisFileDirectory)..\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(MSBuildThisFileDirectory)..\obj\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>NBT-AA-Installer</TargetName>
+    <!-- wx.rc embeds its own manifest; a second one from the linker would clash. -->
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <!-- Sources are UTF-8 without a BOM (the UI uses symbols such as ⚠); without this MSVC reads them as Windows-1252. -->
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <WarningLevel>Level4</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <!-- Our code at /W4; wxWidgets' and libssh2's headers are not ours to fix. -->
+      <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <DisableAnalyzeExternal>true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories>$(WxDir)include\msvc;$(WxDir)include;$(DepsDir)libssh2\include;$(DepsDir)json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <!-- wxNO_*_LIB: only base, core, stc (with Scintilla and Lexilla), png, zlib and regex are linked; the rest of wx is not used here. -->
+      <PreprocessorDefinitions>__WXMSW__;WIN32;_WINDOWS;UNICODE;_UNICODE;NOMINMAX;_CRT_SECURE_NO_WARNINGS;wxNO_NET_LIB;wxNO_XML_LIB;wxNO_EXPAT_LIB;wxNO_JPEG_LIB;wxNO_TIFF_LIB;wxNO_WEBP_LIB;wxNO_HTML_LIB;wxNO_QA_LIB;wxNO_XRC_LIB;wxNO_AUI_LIB;wxNO_PROPGRID_LIB;wxNO_RIBBON_LIB;wxNO_RICHTEXT_LIB;wxNO_MEDIA_LIB;wxNO_WEBVIEW_LIB;wxNO_GL_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(WxDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>wxUSE_RC_MANIFEST=1;wxUSE_DPI_AWARE_MANIFEST=2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalLibraryDirectories>$(WxDir)lib\vc_x64_lib;$(DepsDir)lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <!-- wx libraries are linked by #pragma in wx/setup.h; libssh2 with Windows CNG needs these; winhttp for GitHub. -->
+      <AdditionalDependencies>libssh2.lib;ws2_32.lib;bcrypt.lib;crypt32.lib;iphlpapi.lib;winhttp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <Optimization>Disabled</Optimization>
+      <!-- Debug info inside each .obj: no shared vc145.pdb for a stuck compiler to lock. -->
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="CarFinder.cpp" />
+    <ClCompile Include="CarShell.cpp" />
+    <ClCompile Include="Deployer.cpp" />
+    <ClCompile Include="DirListing.cpp" />
+    <ClCompile Include="EnvFile.cpp" />
+    <ClCompile Include="GitHubReleases.cpp" />
+    <ClCompile Include="HttpClient.cpp" />
+    <ClCompile Include="LogPanel.cpp" />
+    <ClCompile Include="MainFrame.cpp" />
+    <ClCompile Include="PackageFiles.cpp" />
+    <ClCompile Include="PackageSource.cpp" />
+    <ClCompile Include="RunLog.cpp" />
+    <ClCompile Include="SettingControl.cpp" />
+    <ClCompile Include="SettingsBook.cpp" />
+    <ClCompile Include="SettingsCatalog.cpp" />
+    <ClCompile Include="SourcePanels.cpp" />
+    <ClCompile Include="SshSession.cpp" />
+    <ClCompile Include="ZipReader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="App.h" />
+    <ClInclude Include="CarFinder.h" />
+    <ClInclude Include="CarLogin.h" />
+    <ClInclude Include="CarShell.h" />
+    <ClInclude Include="CarState.h" />
+    <ClInclude Include="Deployer.h" />
+    <ClInclude Include="DirListing.h" />
+    <ClInclude Include="EnvFile.h" />
+    <ClInclude Include="GitHubReleases.h" />
+    <ClInclude Include="HttpClient.h" />
+    <ClInclude Include="LogLevel.h" />
+    <ClInclude Include="LogPanel.h" />
+    <ClInclude Include="MainFrame.h" />
+    <ClInclude Include="PackageFiles.h" />
+    <ClInclude Include="PackageSource.h" />
+    <ClInclude Include="RunLog.h" />
+    <ClInclude Include="SettingControl.h" />
+    <ClInclude Include="SettingsBook.h" />
+    <ClInclude Include="SettingsCatalog.h" />
+    <ClInclude Include="SourcePanels.h" />
+    <ClInclude Include="SshSession.h" />
+    <ClInclude Include="Version.h" />
+    <ClInclude Include="ZipReader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="App.rc" />
+  </ItemGroup>
+  <!-- Licence files travel with the .exe, so a copied build still carries every notice. -->
+  <ItemGroup>
+    <None Include="..\LICENSE" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\THIRD-PARTY-NOTICES.md" CopyToOutputDirectory="PreserveNewest" />
+    <!-- The tabs are built from this at start-up; editing the copy next to the .exe needs no rebuild. -->
+    <None Include="..\data\settings.json" Link="data\settings.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

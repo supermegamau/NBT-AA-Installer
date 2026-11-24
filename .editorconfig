@@ -1,0 +1,29 @@
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{cpp,h,rc}]
+indent_size = 4
+# no max_line_length: every call and statement stays on one line
+cpp_new_line_before_open_brace_namespace = new_line
+cpp_new_line_before_open_brace_type = new_line
+cpp_new_line_before_open_brace_function = new_line
+cpp_new_line_before_open_brace_block = new_line
+cpp_new_line_before_open_brace_lambda = new_line
+
+[*.{vcxproj,props,sln,xml}]
+indent_size = 2
+
+[*.ps1]
+indent_size = 4
+
+[deps/**]
+# third-party code keeps its own style
+indent_style = unset
+indent_size = unset
+trim_trailing_whitespace = unset
+insert_final_newline = unset

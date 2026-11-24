@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- NBT-AA-Installer: build-deps.ps1 copies this to wxWidgets\build\msw\, where wx_setup.props imports it. -->
+<!-- Static CRT so the app links into one .exe without the VC++ runtime. -->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="UserMacros">
+    <wxRuntimeLibs>static</wxRuntimeLibs>
+    <wxReleaseRuntimeLibrary>MultiThreaded</wxReleaseRuntimeLibrary>
+    <wxDebugRuntimeLibrary>MultiThreadedDebug</wxDebugRuntimeLibrary>
+  </PropertyGroup>
+</Project>
