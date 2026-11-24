@@ -58,7 +58,7 @@ Out of scope:
 | Sharing | Public git repo with source, noncommercial |
 | Author name in copyright lines and git | **supermegamau** (not the real name). Set `user.name` / `user.email` in this repo before the first commit. |
 | Licence | **PolyForm Noncommercial 1.0.0** (same as NBT-AAD) |
-| Version | **0.1.0** (2026-11-20), in `src/Version.h` only; changed only when the owner asks. Shown in the window title, the first line of every log, the `.exe`'s file properties and the GitHub User-Agent. |
+| Version | **0.1.1** (2026-11-24; 0.1.0 on 2026-11-20), in `src/Version.h` only; changed only when the owner asks. Shown in the window title, the first line of every log, the `.exe`'s file properties and the GitHub User-Agent. |
 
 ## 3. Tech stack
 

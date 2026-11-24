@@ -6,8 +6,8 @@
 // version must come from here too and the resource compiler reads only the preprocessor.
 #define NBTAA_VERSION_MAJOR 0
 #define NBTAA_VERSION_MINOR 1
-#define NBTAA_VERSION_PATCH 0
-#define NBTAA_VERSION_TEXT "0.1.0"
+#define NBTAA_VERSION_PATCH 1
+#define NBTAA_VERSION_TEXT "0.1.1"
 
 #ifndef RC_INVOKED
 constexpr const char* kAppVersion = NBTAA_VERSION_TEXT;

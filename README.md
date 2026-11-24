@@ -1,6 +1,6 @@
 # NBT-AA-Installer
 
-> **Version 0.1.0.** It shows in the window title and at the top of every log.
+> **Version 0.1.1.** It shows in the window title and at the top of every log.
 >
 > **Status (2026-11-20): built, not yet run against a car.** Tested on a PC without a car: the GitHub list, downloading
 > and checking a release, reading a folder, the settings tabs and the File tab, and the 45 checks in
