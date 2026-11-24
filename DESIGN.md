@@ -453,17 +453,23 @@ files in the data dir):
 
 | Setting | iDrive option | Flag file |
 |---|---|---|
-| `NBT_KOMBI_NAV` | Turn arrows in cluster/HUD | `kombi-nav` |
+| `NBT_KOMBI_NAV` | Show navigation in HUD/gauge cluster | `kombi-nav` |
 | `NBT_KOMBI_NAV_APPROACH` (+ `NBT_KOMBI_NAV_APPROACH_MI`) | Show directions at any distance | `kombi-nav-anydist` |
-| `NBT_CLUSTER` | Gauge cluster type (J29 / 6WA / 6WB radio buttons) | `cluster` (holds the word); **missing from manifest.json** |
-| `NBT_NO_LOG` | Disable logging | `no-log` |
+| `NBT_CLUSTER` | HUD profiles (G Series/Supra J29 / F-series 6WA; the daemon rejects 6WB) | `cluster` (holds the word); **missing from manifest.json** |
+| `NBT_KOMBI_MEDIA` | Song title in gauge cluster | `kombi-media` |
+| `NBT_HUD_CYRILLIC` | Cyrillic street names in HUD | `hud-cyrillic` |
+| `NBT_NO_LOG` | Disable logging (performance test) | `no-log` |
 | `NBT_SPEECH_BT` | Prompts on car radio (BT, beta) | `speech-bt` |
-| `NBT_USB` | Android Auto over USB (beta) | `usb-aa` |
+| `NBT_SPEECH_OWN_CHANNEL` | Nav prompts mixed into Music (**inverted**: ticked = mixed, i.e. `0`) | `nav-prompt-mix` |
+| `NBT_GESTURE_SKIP` | Switch 2 Finger Gesture to Mute (**inverted**: ticked = mute, i.e. `0`) | `gesture-mute` |
+| `NBT_USB` | Android Auto over USB | `usb-aa` |
 | `NBT_PHONE_GPS` | Use Phone GPS | `phone-gps` |
-| `NBT_ALT_WIFI` | Use WiFi Direct Network | `wifi-direct` |
+| `NBT_ALT_WIFI` | Use WiFi Direct Network (own password) | `wifi-direct` |
 | `NBT_AUDIO_MODE` (+ `NBT_AUDIO_BT`) | Use Native Audio instead of Bluetooth | `native-audio` |
-| `NBT_LCI_MEDIA` | Media Controls for LCI Steering Wheels | `lci-media` |
+| `NBT_LCI_MEDIA` | Native Functionality Media Controls Restore (beta) | `lci-media` |
 | `NBT_CP_COMPAT` (+ `NBT_CP_YIELD`, `NBT_CP_PURGE`, `NBT_CP_WINGRP`) | CarPlay compatibility | `carplay-compat` |
+
+Updated 2026-11-24 to NBT-AAD v1.9.119-hudprofiles (`origin/main` cd1d9f8).
 
 Checkboxes with no `.env` equivalent, which are not shown: Start automatically, Save logs to USB, MENU key opens iDrive,
 Show driving mode changes, Show iDrive warnings. The tool can still read their flag files to show "iDrive: on" next to
@@ -750,8 +756,13 @@ Still open:
 
 ## 16. As built (2026-11-20)
 
-- **Settings list**: `data\settings.json` has 163 settings (Common 30, Features 24, iDrive overrides 16, Advanced 93; 84
-  of them hidden until "Show advanced settings"). App-only: `NBT_MENU_RETURN`, `NBT_AA_HIDE_ON_KEY`,
+- **Settings list**: `data\settings.json` had 163 settings at first; since the 2026-11-24 update to NBT-AAD
+  v1.9.119-hudprofiles it has 167 (Common 27, Features 24, iDrive overrides 20, Advanced 96). That update removed three
+  settings that existed only in uncommitted local work (`NBT_SPEECH_OVER_MEDIA`, `NBT_PROMPT_PAUSE_MEDIA`,
+  `NBT_PROMPT_RESUME_MS`), added `NBT_SPEECH_OWN_CHANNEL`, `NBT_GESTURE_SKIP`, `NBT_GESTURE_SNIFF`, `NBT_GESTURE_IF`,
+  `NBT_HUD_GLYPHS`, `NBT_KOMBI_MEDIA` and `NBT_HUD_CYRILLIC`, made `NBT_PTT_ASSISTANT` default to on, gave `NBT_MFL_*`
+  their head-unit button defaults, and renamed the iDrive rows to match iDrive's current wording. Generate from
+  `origin/main` (read with `git show` / `git grep`), never from a working copy with uncommitted changes. App-only: `NBT_MENU_RETURN`, `NBT_AA_HIDE_ON_KEY`,
   `NBT_AA_CAMERA_CTX`, `NBT_AA_WARN_IGNORE`, `NBT_AA_HOLD`, `NBT_AA_CAR_ASIDE`, `NBT_SETTINGS_RESTART`. Secret:
   `NBT_WFD_PASS` (`NBT_WFD_OWN_PASS` turned out to be a mode switch, not a password). `NBT_CLUSTER` offers `j29` and
   `6wa` only: the daemon treats `6wb` as unknown. Left out: debug, identity, test-hook and path/port plumbing settings.
