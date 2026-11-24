@@ -1,11 +1,13 @@
 # NBT-AA-Installer
 
+> **Free, unofficial, and used entirely at your own risk.** The author accepts no responsibility for any problem,
+> damage or loss caused by running it. Read the [Disclaimer](#disclaimer) before you use it on a car.
+
 > **Version 0.1.1.** It shows in the window title and at the top of every log.
 >
-> **Status (2026-11-20): built, not yet run against a car.** Tested on a PC without a car: the GitHub list, downloading
-> and checking a release, reading a folder, the settings tabs and the File tab, and the 45 checks in
-> `tests\`. Connect, Send to car, Write .env only, Roll back and Pull car logs have not talked to a car yet. Try
-> Connect first: it only reads.
+> **Status (2026-11-24): tested on one NBT Evo** (hand install): Connect, Send to car from GitHub and from a folder,
+> the automatic restore after a failed send, the firewall step and the iDrive restart. Write .env only and Roll back
+> have not been used on a car yet. Try Connect first: it only reads.
 
 A Windows tool that installs or updates [NBT-AAD](https://github.com/Sq00ky/Supra-iDrive6-Android-Auto) (wireless
 Android Auto for BMW / Toyota NBT Evo, iDrive 6 head units) over SSH, with no USB stick, and edits its settings file.
@@ -289,5 +291,18 @@ ask. NBT-AAD is free: selling it, or bundling it with anything sold, is not perm
 
 ## Disclaimer
 
-No warranty. Changing a head unit is at your own risk; keep the `.old` files until the new version works. BMW, MINI,
-Toyota and Android Auto are trademarks of their owners; this project is not affiliated with them.
+**Use at your own risk.** NBT-AA-Installer is free, unofficial software, provided "as is", without warranty of any
+kind. It changes files on your car's head unit, and things can go wrong: an update that fails half way, Android Auto
+or the head unit no longer starting or behaving differently, lost settings, a voided warranty, or worse.
+
+**The author is not responsible** for any problem, damage, loss or cost caused by using this software, or by being
+unable to use it. That includes damage to your car, head unit, phone, PC or data, and any repair, dealer or recovery
+costs. By downloading or running it you accept this. The full terms, including the "No Liability" section, are in
+[LICENSE](LICENSE) (PolyForm Noncommercial 1.0.0).
+
+Before you change anything, make sure you know how to get back: keep the `.old` files until the new version works, and
+know how to recover the head unit by other means if the tool can no longer reach it. NBT-AAD is a separate project
+with its own authors and licence; this tool only installs it.
+
+BMW, MINI, Toyota and Android Auto are trademarks of their owners. This project is not affiliated with, endorsed by or
+supported by them.
